@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -14,9 +15,11 @@ root.render(
    {/* {<React.StrictMode>} */}
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />} />
-        <Route path="/users" element={<User />} />
-        <Route path="/admins" element={<Admin />} />
+        <Route path='/' element={<App />}>
+          <Route path="/users" element={<User />} />
+          <Route path="/admins" element={<Admin />} />
+        </Route>
+        
       </Routes>
     </BrowserRouter>
       
