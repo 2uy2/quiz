@@ -14,7 +14,8 @@ const App = () => {
       <div className='main-container'>
         <div className='sidenav-container'></div>
         <div className='app-content'></div>
-        <Outlet/>
+        <Outlet/> 
+        {/* outlet dùng để xác định thay đổi theo router */}
       </div>
       
       
