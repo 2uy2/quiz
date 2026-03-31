@@ -9,10 +9,23 @@
         width:100%;
         .admin-header{
             height:40px;
-            border:1px solid red;
+            
         }
         .admin-main{
-            border:1px solid red;
+            
         }
     }
+}
+.Toastify__toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.Toastify__toast-body {
+  margin: 0;
+  padding: 0;
 }
