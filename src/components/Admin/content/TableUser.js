@@ -1,24 +1,13 @@
-import { useEffect, useState } from "react";
-import { getAllUser } from "../../../services/apiServices";
+import { useState } from "react";
 const TableUser=(props)=>{
-    const [listUser,setListUser] = useState([]);
+    const {listUser} = props
     
-    useEffect(()=>{
-        fetchListUser();
-        
-    },[]);
-    const fetchListUser = async()=>{
-        let res =await getAllUser();
-        if(res.EC===0){
-            setListUser(res.DT)
-        }
-    }
     return(
         <>
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">No</th>
+                        <th scope="col">Id</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
                         <th scope="col">Role</th>
@@ -29,14 +18,14 @@ const TableUser=(props)=>{
                     {listUser && listUser.length>0 && listUser.map((item,index)=>{
                         return(
                              <tr key={`table-user-${index}`}>
-                                <td scope="row">{index+1}</td>
+                                <td scope="row">{item.id}</td>
                                 <td>{item.username}</td>
                                 <td>{item.email}</td>
                                 <td>{item.role}</td>
                                 <td>
-                                    <buttom className="btn btn-secondary">View</buttom>
-                                    <buttom className="btn btn-warning mx-3">Update</buttom>
-                                    <buttom className="btn btn-danger">Delete</buttom>
+                                    <button className="btn btn-secondary" onClick={()=>props.handleClickView(item)}>View</button>
+                                    <button className="btn btn-warning mx-3" onClick={()=>props.handleClickBtnUpdate(item)}>Update</button>
+                                    <button className="btn btn-danger"  onClick={()=>props.handleClickBtnDelete(item)}>Delete</button>
                                 </td>
                             </tr>
                         )
