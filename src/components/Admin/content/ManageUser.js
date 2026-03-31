@@ -3,13 +3,16 @@ import "./ManageUser.scss"
 import { PiPlusCircleFill } from "react-icons/pi";
 import TableUser from "./TableUser";
 import { useEffect, useState } from "react";
-import { getAllUser } from "../../../services/apiServices";
+import { getAllUser,getUserWithPaginate} from "../../../services/apiServices";
 import ModalUpdateUser from "./ModalUpdate";
 import ModalViewUser from "./ModalView";
 import ModalDeleteUser from "./ModalDeleteUser";
+import TableUserPaginate from "./TableUserPaginate";
 
 
 const ManageUser = (props) =>{
+    const LIMIT_USER=5;
+    const [pageCount,setPageCount]=useState(0);
     const [showModalCreateUser,setModalCreateUser]=useState(false);
     const [showModalUpdateUser,setShowModalUpdateUser] =useState(false);
     const [showModalViewUser,setShowModalViewUser] =useState(false);
@@ -18,13 +21,22 @@ const ManageUser = (props) =>{
     const[dataDelete,setDataDelete] = useState({});
     const [listUser,setListUser] = useState([]);
     useEffect(()=>{
-        fetchListUser();
+        // fetchListUser();
+        fetchListUserWithPaginate(1);
         
     },[]);
     const fetchListUser = async()=>{
         let res =await getAllUser();
         if(res.EC===0){
             setListUser(res.DT)
+        }
+    }
+    const fetchListUserWithPaginate = async(page,)=>{
+        let res =await getUserWithPaginate(page,LIMIT_USER);
+        if(res.EC===0){
+            console.log(res.DT)
+            setListUser(res.DT.users);
+            setPageCount(res.DT.totalPages);
         }
     }
     const handleClickBtnUpdate =(user)=>{
@@ -52,13 +64,13 @@ const ManageUser = (props) =>{
                     <button className="btn btn-primary" onClick={()=>setModalCreateUser(true)} ><PiPlusCircleFill/>Add new user</button>
                 </div>
                 <div className="table-users-container">
-                    <TableUser listUser={listUser} handleClickBtnUpdate={handleClickBtnUpdate} handleClickView={handleClickView} handleClickBtnDelete={handleClickBtnDelete}/> 
-                    
+                    {/* <TableUser listUser={listUser} handleClickBtnUpdate={handleClickBtnUpdate} handleClickView={handleClickView} handleClickBtnDelete={handleClickBtnDelete}/>  */}
+                    <TableUserPaginate listUser={listUser} handleClickBtnUpdate={handleClickBtnUpdate} handleClickView={handleClickView} handleClickBtnDelete={handleClickBtnDelete} fetchListUserWithPaginate={fetchListUserWithPaginate} pageCount={pageCount}/>
                 </div>
                 <ModalCreateUser show={showModalCreateUser} setShow={setModalCreateUser} fetchListUser={fetchListUser}/>
                 <ModalUpdateUser show={showModalUpdateUser}  setShow={setShowModalUpdateUser} dataUpdate={dataUpdate} fetchListUser={fetchListUser} resetUpdateData={resetUpdateData} />
                 <ModalViewUser show={showModalViewUser}  setShow={setShowModalViewUser} dataUpdate={dataUpdate}  resetUpdateData={resetUpdateData}/>
-                <ModalDeleteUser show={showModalDeleteUser} setShow={setShowModalDeleteUser} dataDelete={dataDelete}/>
+                <ModalDeleteUser show={showModalDeleteUser} setShow={setShowModalDeleteUser} dataDelete={dataDelete} fetchListUser={fetchListUser}/>
             </div>
 
         </div>
