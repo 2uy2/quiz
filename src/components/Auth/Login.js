@@ -1,15 +1,44 @@
 import { useState } from "react";
 import  "./Login.scss";
+import { useNavigate } from "react-router-dom";
+import { postLogin } from "../../services/apiServices";
+import { toast } from 'react-toastify';
+
 const Login = (props)=>{
+
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+
     const [email,setEmail] = useState("");
-    const [password,setPassword]=useState("")
-    const handleLogin=()=>{
+    const [password,setPassword]=useState("");
+    const navigate = useNavigate();
+    const handleLogin=async()=>{
+        //validate
         
+        //submit api
+        let data = await postLogin(email,password);
+        console.log(data);
+        if(data&& data.EC===0){
+            toast.success(data.EM);
+            navigate("/")
+            
+           
+          }
+          if(data&& data.EC!==0){
+            toast.error(data.EM);
+            
+          }
     }
     return (
         <div className="login-center">
             <div className="header">
-                Dont' have an account yet ?
+                <span>Dont' have an account yet ?</span>
+                <button onClick={()=>navigate("/register")}>sign up</button>
             </div>
             <div className="title col-4 mx-auto">Quý đz</div>
             <div className="welcome col-4 mx-auto">
@@ -28,8 +57,12 @@ const Login = (props)=>{
                 <div>
                     <button className="btn-submit" onClick={()=>handleLogin()}>Đăng nhập</button>
                 </div>
+                <div className="text-center">
+                    <span className="back" onClick={()=>navigate("/")}> &#60;&#60; go to HomepPage</span>
+                </div>
                 
             </div>
+            
         </div>
     )
 }

@@ -2,8 +2,26 @@
     .header{
         height:45px;
         text-align: right;
-        border: 1px solid red
+      
+        padding: 5px 100px 0px 100px;
 
+        button{
+            padding: 5px 15px ;
+            margin-left: 15px;
+            border-radius: 5px;
+            background: black;
+            color: white;
+            border: 1px solid;
+            align-items: center;
+            &:hover{
+                background-color: rgb(129, 117, 197);
+            }
+        }
+        
+
+    }
+    .back{
+        cursor: pointer;
     }
     .title{
         font-size: 25px;

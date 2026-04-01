@@ -28,7 +28,7 @@ const handleClose = () => {
 
 const handleUploadImage=(event)=>{
   if(event.target && event.target.files && event.target.files[0]){
-      setPreviewImage(URL.createObjectURL(event.target.files[0]));
+      setPreviewImage(URL.createObjectURL(event.target.files[0])); //dùng để tạo một đường dẫn tạm thời (URL) cho file (thường là ảnh) mà người dùng vừa chọn từ máy.
       setImage(event.target.files[0]);
   }
   else {
