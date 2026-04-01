@@ -7,12 +7,13 @@ const TableUserPaginate=(props)=>{
 
     const {listUser,pageCount} = props;
     const handlePageClick = (event) => {
-    props.fetchListUserWithPaginate(parseInt(event.selected) +1);
-    console.log(
-      `User requested page number ${event.selected}`
-    );
+        props.fetchListUserWithPaginate(parseInt(event.selected) +1);
+        props.setCurrentPage(parseInt(event.selected) +1)
+        console.log(
+        `User requested page number ${event.selected}`
+        );
 
-  };
+    };
     
     return(
         <>
@@ -42,28 +43,32 @@ const TableUserPaginate=(props)=>{
                             </tr>
                         )
                     })}
-                    {listUser && listUser.length===0 && <tr><td colSpan={'4'}>Not found data</td></tr>}
+                    {listUser && listUser.length===0 && <tr><td colSpan={'5'}>Not found data</td></tr>}
                    
                   
                 </tbody>
             </table>
-             <ReactPaginate
-                nextLabel="next >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
-                pageCount={pageCount}
-                previousLabel="< previous"
-                renderOnZeroPageCount={null}
+            <div className="user-pagination">
+                <ReactPaginate
+                    nextLabel="next >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
 
-                containerClassName="pagination"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                activeClassName="active"
-            />
+                    containerClassName="pagination"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    activeClassName="active"
+                    forcePage={props.currentPage-1}
+                />
+            </div>
+             
             
         </>
     )

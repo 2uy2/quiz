@@ -65,7 +65,7 @@ const handSubmitCreateUser=async()=>{
   if(data&& data.EC===0){
     toast.success(data.EM);
     handleClose();
-    await props.fetchListUser()
+    await props.fetchListUserWithPaginate(1)
   }
   if(data&& data.EC!==0){
     toast.error(data.EM);
