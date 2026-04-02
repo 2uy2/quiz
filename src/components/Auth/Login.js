@@ -3,7 +3,9 @@ import  "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../services/apiServices";
 import { toast } from 'react-toastify';
-
+import {useDispatch} from "react-redux" 
+import { doLogin } from "../../redux/action/userAction";
+import { ImSpinner6 } from "react-icons/im";
 const Login = (props)=>{
 
     const validateEmail = (email) => {
@@ -17,20 +19,34 @@ const Login = (props)=>{
     const [email,setEmail] = useState("");
     const [password,setPassword]=useState("");
     const navigate = useNavigate();
+    const disPatch = useDispatch();
+    const [isLoading,setIsLoading] = useState(false);
     const handleLogin=async()=>{
         //validate
-        
+        const isValidateEmail = validateEmail(email);
+        if(!isValidateEmail){
+            toast.error("invalid email");
+            return;
+        }
+        if(!password){
+            toast.error("invalid password");
+            return;
+        }
+        setIsLoading(true);
         //submit api
         let data = await postLogin(email,password);
-        console.log(data);
+      
         if(data&& data.EC===0){
+            disPatch(doLogin(data))
             toast.success(data.EM);
+            setIsLoading(false) // phải để trc navigate vì nếu để sau thì k còn component login nữa(unmount) nên sẽ gây ra bug
             navigate("/")
             
            
           }
           if(data&& data.EC!==0){
             toast.error(data.EM);
+            setIsLoading(false)
             
           }
     }
@@ -55,7 +71,7 @@ const Login = (props)=>{
                 </div>
                 <span className="forgot-password">Forgot password ?</span>
                 <div>
-                    <button className="btn-submit" onClick={()=>handleLogin()}>Đăng nhập</button>
+                    <button className="btn-submit" onClick={()=>handleLogin()} disabled={isLoading}> {isLoading===true? <ImSpinner6 className="loaderIcon"/> : ""}<span>login</span></button>
                 </div>
                 <div className="text-center">
                     <span className="back" onClick={()=>navigate("/")}> &#60;&#60; go to HomepPage</span>

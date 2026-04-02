@@ -8,7 +8,7 @@ import store from './redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter ,Route, Routes } from "react-router-dom"; //giúp điề hướng trang
 import Layout from './Layout';
-
+import "nprogress/nprogress.css"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

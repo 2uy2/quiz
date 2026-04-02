@@ -1,4 +1,16 @@
 import axios from "axios"; 
+import { each } from "lodash";
+import NProgress from "nprogress";
+
+//customize loading bar
+NProgress.configure({
+  showSpinner:false,
+  easing:"ease",
+  speed:500,
+  trickleSpeed:100
+})
+//end customize loading bar
+
 const instance = axios.create({
   baseURL: "http://localhost:8081/",
   
@@ -8,6 +20,7 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {
+    NProgress.start();
      
     // Do something before the request is sent
     return config;
@@ -21,7 +34,7 @@ instance.interceptors.request.use(
 // Add a response interceptor
 instance.interceptors.response.use(
   function (response) {
-    // console.log(">>>interceptor",response)
+    NProgress.done();
     // Any status code that lies within the range of 2xx causes this function to trigger
     // Do something with response data
     return response&&response.data ? response.data:response;

@@ -49,6 +49,27 @@
             margin: 20px 0;
             color: white;
             background-color: black;
+            &:disabled{
+                background: #dddddd !important;
+                color: #afafaf !important;
+                cursor: no-drop;
+            }
         }
-    }
+        .loaderIcon {
+            font-size: 22px;
+            margin-right: 7px;
+            top: 2px;
+            animation: spin 1s infinite linear;
+            color: rgb(46, 252, 156);
+        }
+
+        @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+            }
 }

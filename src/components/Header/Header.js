@@ -1,10 +1,16 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropDown from  'react-bootstrap/NavDropDown'
 
 import { NavLink ,useNavigate} from "react-router";
+import { useSelector } from 'react-redux';
 
 const Header=()=> {
+  const isAuthenticated = useSelector(state => state.user.isAuthenticated)
+  const account = useSelector(state => state.user.account);
+  
+
   const navigate = useNavigate();
   const handleLogin = ()=>{
     navigate("/login");
@@ -24,12 +30,18 @@ const Header=()=> {
             
           </Nav>
           <Nav>
-            <button className='btn-login' onClick={()=>handleLogin()}>Log in</button>
-            <button className='btn-signup' onClick={()=>navigate('/register')}>Sign up</button>
-           
+            {isAuthenticated===false ? 
+            <>
+              <button className='btn-login' onClick={()=>handleLogin()}>Log in</button>
+              <button className='btn-signup' onClick={()=>navigate('/register')}>Sign up</button>
+            </>
+            :
+            <NavDropDown title="Settings" id="basic-nav-dropdown">
+              <NavDropDown.Item>Log out</NavDropDown.Item>
+              <NavDropDown.Item>Profile</NavDropDown.Item>
+            </NavDropDown>
+            }
 
-              
-         
           </Nav>        
         </Navbar.Collapse>
       </Container>
