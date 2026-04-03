@@ -1,6 +1,7 @@
 import axios from "axios"; 
-import { each } from "lodash";
+
 import NProgress from "nprogress";
+import {store} from "../redux/store"
 
 //customize loading bar
 NProgress.configure({
@@ -20,8 +21,9 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {
+    const access_token = store?.getState()?.user?.account?.access_token; //lấy accesstoken từ redux
+    config.headers["Authorization"] = `Bearer ${access_token}`; // rồi gắn vào config
     NProgress.start();
-     
     // Do something before the request is sent
     return config;
   },
@@ -40,6 +42,7 @@ instance.interceptors.response.use(
     return response&&response.data ? response.data:response;
   },
   function (error) {
+    NProgress.done();
     // Any status codes that fall outside the range of 2xx cause this function to trigger
     // Do something with response error\
     // console.log(">>>run error",error.response);
