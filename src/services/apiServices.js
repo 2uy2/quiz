@@ -47,5 +47,8 @@ const getQuizByUser = ()=>{
 const getDataQuiz = (id)=>{
     return axios.get(`api/v1/questions-by-quiz?quizId=${id}`)
 }
+const postSubmitQuiz=(data)=>{
+    return axios.post(`api/v1/quiz-submit`,{...data}); //vì chuyền data dạng raw nên cần phải trải ra
+}
 
-export {postCreateNewUser,getAllUser,putUpdateUser,deleteUser,getUserWithPaginate,postLogin,postRegister,getQuizByUser,getDataQuiz}
+export {postCreateNewUser,getAllUser,putUpdateUser,deleteUser,getUserWithPaginate,postLogin,postRegister,getQuizByUser,getDataQuiz,postSubmitQuiz}
