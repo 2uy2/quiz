@@ -63,5 +63,36 @@ const postCreateNewQuiz = (description,name,difficulty,image)=>{
 const getAllQuizForAdmin = ()=>{
     return axios.get(`api/v1/quiz/all`)
 }
+const putUpdateQuizForAdmin=(id,name,description,difficulty,image)=>{
+    const data = new FormData();
+    data.append("id", id);
+   
+    data.append("description", description);
+    data.append("name", name);
+    data.append("difficulty", difficulty);
+    data.append("quizImage", image);
 
-export {postCreateNewUser,getAllUser,putUpdateUser,deleteUser,getUserWithPaginate,postLogin,postRegister,getQuizByUser,getDataQuiz,postSubmitQuiz,postCreateNewQuiz,getAllQuizForAdmin}
+    return axios.put(`api/v1/quiz`, data);
+}
+const deleteQuizForAmin=(id)=>{
+    return axios.delete(`api/v1/quiz/${id}`);
+}
+
+const postCreateNewQuestionForQuiz =(quiz_id,description,image)=>{
+    const data = new FormData();
+    data.append("quiz_id", quiz_id);
+    data.append("description", description);
+  
+    data.append("questionImage", image);
+
+    return axios.post('api/v1/question',data)
+
+}
+const postCreateNewAnswerForQuestion =(description,correct_answer,question_id)=>{
+    
+    return axios.post('api/v1/answer',{description:description,correct_answer:correct_answer,question_id:question_id})
+
+}
+export {postCreateNewUser,getAllUser,putUpdateUser,deleteUser,getUserWithPaginate,postLogin,
+    postRegister,getQuizByUser,getDataQuiz,postSubmitQuiz,postCreateNewQuiz,getAllQuizForAdmin,
+    putUpdateQuizForAdmin,deleteQuizForAmin,postCreateNewQuestionForQuiz,postCreateNewAnswerForQuestion}

@@ -57,11 +57,11 @@ const ManageQuiz = ()=>{
                             <fieldset  className="border rounded-3 p-3">
                                 <legend>Personalia:</legend>
                                 <div className="form-floating mb-3">
-                                    <input type="text" class="form-control" placeholder="your quiz name" value={name} onChange={(event)=>setName(event.target.value)} />
+                                    <input type="text" className="form-control" placeholder="your quiz name" value={name} onChange={(event)=>setName(event.target.value)} />
                                     <label >Name </label>
                                 </div>
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" placeholder="description" value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
+                                <div className="form-floating">
+                                    <input type="text" className="form-control" placeholder="description" value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
                                     <label >Description</label>
                                 </div>
                                 <div className="my-3">
