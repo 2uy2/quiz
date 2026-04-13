@@ -1,9 +1,11 @@
 import videoHomePage from "../../assets/video-homepage.mp4";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useTranslation, Trans } from 'react-i18next';
 const HomepPage =(props)=>{
-    const isAuthenticated = useSelector(state => state.user.isAuthenticated)
+   const isAuthenticated = useSelector(state => state.user.isAuthenticated)
    const navigate = useNavigate();
+   const {t} = useTranslation();
 
 
     return (
@@ -14,8 +16,12 @@ const HomepPage =(props)=>{
                 />
            </video>
            <div className="homepage-content">
-                <div className="title-1">There's a bettter way to ask</div>
-                <div className="title-2">you don't want to make a boring form. And ypur audience won't answer one. Create a type form instead-and make everyone happy</div>
+                <div className="title-1">
+                    {t('homepage.title1')}
+                </div>
+                <div className="title-2">
+                    {t(`homepage.title2`)}
+                </div>
                 <div className="title-3" >
                     {isAuthenticated ===false ?
                     <button onClick={()=>navigate(`/login`)}>Get's started. It's free</button> 

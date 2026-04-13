@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import {useDispatch} from "react-redux" 
 import { doLogin } from "../../redux/action/userAction";
 import { ImSpinner6 } from "react-icons/im";
+import Language from "../Header/Language";
 const Login = (props)=>{
 
     const validateEmail = (email) => {
@@ -50,11 +51,18 @@ const Login = (props)=>{
             
           }
     }
+    //xử lý khi nhân enter để đăng nhập
+    const handleKeyDown = (event)=>{
+        if(event.key==="Enter"){
+            handleLogin();
+        }
+    }
     return (
         <div className="login-center">
             <div className="header">
                 <span>Dont' have an account yet ?</span>
                 <button onClick={()=>navigate("/register")}>sign up</button>
+                <Language/>
             </div>
             <div className="title col-4 mx-auto">Quý đz</div>
             <div className="welcome col-4 mx-auto">
@@ -67,7 +75,7 @@ const Login = (props)=>{
                 </div>
                 <div className="form-group">
                     <label>Password</label>
-                    <input type={"password"} className="form-control " value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                    <input type={"password"} className="form-control " value={password} onChange={(e)=>setPassword(e.target.value)} onKeyDown={(event)=>handleKeyDown(event)}/>
                 </div>
                 <span className="forgot-password">Forgot password ?</span>
                 <div>

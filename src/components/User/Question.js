@@ -1,7 +1,9 @@
 import _ from "lodash";
-
+import { useState } from "react";
+import Lightbox from "react-awesome-lightbox";
 const Question = (props)=>{
     const {data,index} = props;
+    const [isPreviewImage,setIsPreviewImage]=useState(false);
     if(_.isEmpty(data)){
         return (
             <></>
@@ -13,11 +15,15 @@ const Question = (props)=>{
         props.handleCheckbox(aId,qId);
 
    }
+
     return (
         <>
             {data.image ?
                 <div className="q-image">
-                    <img src={`data:image/jpeg;base64,${data.image}`}/>
+                    <img src={`data:image/jpeg;base64,${data.image}`} onClick={()=>setIsPreviewImage(true)} style={{cursor:"pointer"}}/>
+                    {isPreviewImage===true &&
+                        <Lightbox image={`data:image/jpeg;base64,${data.image}`} title={"question image"} onClose={()=>setIsPreviewImage(false)}></Lightbox>
+                    }
                 </div> 
                 :
                 <div className="q-image"></div>
@@ -25,8 +31,8 @@ const Question = (props)=>{
             
             <div className="question">question{index+1}:{data.questionDescription} ? </div>
                 <div className="answer">
-                    {data.answer && data.answer.length && 
-                    data.answer.map((item,index)=>{
+                    {data.answers && data.answers.length && 
+                    data.answers.map((item,index)=>{
                         return(
                             <div key={`answer-${index}`} className="a-child">
                                 <div className="form-check">

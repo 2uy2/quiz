@@ -12,6 +12,12 @@ body {
     }
 }
 
+.languages{
+    .dropdown-toogle::after{
+        display: none !important;
+    }
+}
+
 .app-container{
     .header-container{
         .btn-login {
@@ -73,6 +79,9 @@ body {
             }
         }
     }
+    .app-container{
+        height: calc(100vh - 60px);
+    }
 }
 
 video{
@@ -80,4 +89,5 @@ video{
  bottom: 0;
 width:100vw;
 }
+
 

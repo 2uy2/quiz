@@ -55,7 +55,7 @@ const postCreateNewQuiz = (description,name,difficulty,image)=>{
     data.append("description", description);
     data.append("name", name);
     data.append("difficulty", difficulty);
-    data.append("quizimage", image);
+    data.append("quizImage", image);
 
     return axios.post("api/v1/quiz", data);
 }
@@ -93,6 +93,27 @@ const postCreateNewAnswerForQuestion =(description,correct_answer,question_id)=>
     return axios.post('api/v1/answer',{description:description,correct_answer:correct_answer,question_id:question_id})
 
 }
+const postAssignQuiz = (quizId,userId)=>{
+    return axios.post(`api/v1/quiz-assign-to-user`,{
+        quizId,userId
+    });
+}
+const getQuizWithQA = (quizId)=>{
+    return axios.get(`api/v1/quiz-with-qa/${quizId}`)
+}
+const postUpsertQA=(data)=>{
+    return axios.post(`api/v1/quiz-upsert-qa`,{...data})
+}
+const logout =(email,refresh_token)=>{
+    return axios.post(`api/v1/logout`,{
+        email:email,refresh_token:refresh_token
+    })
+
+}
+const getOverView = ()=>{
+    return axios.get(`api/v1/overview`);
+}
 export {postCreateNewUser,getAllUser,putUpdateUser,deleteUser,getUserWithPaginate,postLogin,
     postRegister,getQuizByUser,getDataQuiz,postSubmitQuiz,postCreateNewQuiz,getAllQuizForAdmin,
-    putUpdateQuizForAdmin,deleteQuizForAmin,postCreateNewQuestionForQuiz,postCreateNewAnswerForQuestion}
+    putUpdateQuizForAdmin,deleteQuizForAmin,postCreateNewQuestionForQuiz,postCreateNewAnswerForQuestion,
+    postAssignQuiz,getQuizWithQA,postUpsertQA,logout,getOverView}

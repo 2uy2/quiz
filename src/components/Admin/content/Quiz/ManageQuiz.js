@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { PiPlusCircleFill } from "react-icons/pi";
 import TableQuiz from "./TableQuiz";
 import Accordion from 'react-bootstrap/Accordion';
+import QuizQA from "./QuizQA";
+import AssignQuiz from "./AssignQuiz";
 const ManageQuiz = ()=>{
     const [name,setName]=useState('');
     const [description,setDescription]=useState('');
@@ -37,7 +39,7 @@ const ManageQuiz = ()=>{
             toast.success(res.EM);
             setName("");
             setDescription("");
-            setImage(null);
+            setImage("");
             setType("");
             setPreviewImage("")
         }
@@ -96,14 +98,27 @@ const ManageQuiz = ()=>{
                                 
                             </fieldset>
                         </div>
+                         <div className="list-detail">
+                            <TableQuiz/>
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>update A/Q Quizzes</Accordion.Header>
+                    <Accordion.Body>
+                        <QuizQA></QuizQA>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Assign to users</Accordion.Header>
+                    <Accordion.Body>
+                        <AssignQuiz></AssignQuiz>
                     </Accordion.Body>
                 </Accordion.Item>
             
             </Accordion>
             
-            <div className="list-detail">
-                <TableQuiz/>
-            </div>
+           
         </div>
     )
 }

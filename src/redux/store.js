@@ -13,7 +13,7 @@ const persistConfig = {
   storage,
 }
  
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer) //thư viện redux-presist tự động lưu vào localstorage
 
     const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)))
 

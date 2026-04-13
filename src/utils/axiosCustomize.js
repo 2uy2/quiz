@@ -22,7 +22,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function (config) {
     const access_token = store?.getState()?.user?.account?.access_token; //lấy accesstoken từ redux
-    config.headers["Authorization"] = `Bearer ${access_token}`; // rồi gắn vào config
+    config.headers["Authorization"] = `Bearer ${access_token}`; // rồi gắn vào config (trong postman ta sẽ thấy phần Authorization ở dạng Bearer Token khi ta test API )
     NProgress.start();
     // Do something before the request is sent
     return config;
@@ -42,6 +42,8 @@ instance.interceptors.response.use(
     return response&&response.data ? response.data:response;
   },
   function (error) {
+    //token refreshe
+
     NProgress.done();
     // Any status codes that fall outside the range of 2xx cause this function to trigger
     // Do something with response error\

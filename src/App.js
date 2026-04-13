@@ -2,7 +2,7 @@ import React from 'react';
 import "./App.scss"
 import Header from "./components/Header/Header";
 import {Outlet } from "react-router";
-
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const App = () => {
   
@@ -14,7 +14,9 @@ const App = () => {
       <div className='main-container'>
         <div className='sidenav-container'></div>
         <div className='app-content'>
-          <Outlet/>
+          <PerfectScrollbar>
+            <Outlet/>
+          </PerfectScrollbar>
         </div>
          
         {/* outlet dùng để xác định thay đổi theo router */}

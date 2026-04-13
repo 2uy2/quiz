@@ -28,7 +28,7 @@ const ModalUpdatQuiz= (props) =>{
             }
             
         }
-        console.log(dataUpdate.difficulty)
+    
     },[props.dataUpdate]);
 
     const handleClose = () => {
